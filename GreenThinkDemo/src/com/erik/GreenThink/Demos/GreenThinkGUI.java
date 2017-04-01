@@ -1,28 +1,22 @@
 package com.erik.GreenThink.Demos;
 
-import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.SpringLayout;
-import java.awt.Component;
-import javax.swing.Box;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SpringLayout;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
+import com.fazecast.jSerialComm.SerialPort;
 //jSerialCom Imports
-import com.fazecast.jSerialComm.*;
 
 public class GreenThinkGUI extends JFrame {
 
