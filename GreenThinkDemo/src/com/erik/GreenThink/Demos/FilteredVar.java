@@ -1,10 +1,30 @@
 package com.erik.GreenThink.Demos;
 
-public class FilteredVar
+public abstract class FilteredVar
 {
-	//TODO
-	//this works by storing distribution of variable and given outputs to estimate value of noisy readings
-	//not necicary if sensor is good, but otherwise it is needed.
+	public abstract void putValue(double val);
+	public abstract double read();
+	
+	public class NoOutlierMeanFilter extends FilteredVar
+	{
+		public NoOutlierMeanFilter()
+		{
+			
+		}
+		
+		@Override
+		public void putValue(double val) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public double read() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+	}
 }
 /*
 x_k=F_k*x_{k-1}+B_k*u_k+w_k
