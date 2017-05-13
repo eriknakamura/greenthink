@@ -2,7 +2,7 @@ package com.erik.GreenThink.Demos;
 
 public class StateManager
 {
-	KalmanFilteredVar pH;
-	KalmanFilteredVar humidity;
-	KalmanFilteredVar temperature;
+	FilteredVar pH;
+	FilteredVar humidity;
+	FilteredVar temperature;
 }

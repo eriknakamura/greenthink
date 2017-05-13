@@ -1,6 +1,6 @@
 package com.erik.GreenThink.Demos;
 
-public class KalmanFilteredVar
+public class FilteredVar
 {
 	//TODO
 	//this works by storing distribution of variable and given outputs to estimate value of noisy readings
