@@ -13,10 +13,8 @@ public interface AurduinoCommInterface {
 	public boolean checkState(String sensor);
 	
 	/**
-	 * 
 	 * @param sensor
 	 * @param state True is on, False is off
-	 * @return
 	 */
-	public boolean setState(String sensor,boolean state);
+	public void setState(String sensor,boolean state);
 }

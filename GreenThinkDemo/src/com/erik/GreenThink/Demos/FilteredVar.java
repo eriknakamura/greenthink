@@ -5,34 +5,31 @@ public abstract class FilteredVar
 	public abstract void putValue(double val);
 	public abstract double read();
 	
-	public class NoOutlierMeanFilter extends FilteredVar
+	public class MeanFilter extends FilteredVar
 	{
-		public NoOutlierMeanFilter()
+		int LEN=100;
+		double[] vals;
+		public MeanFilter()
 		{
-			
+			vals=new double[LEN];
 		}
 		
 		@Override
 		public void putValue(double val) {
-			// TODO Auto-generated method stub
-			
+			double[] nvals= new double[LEN];
+			System.arraycopy(vals, 0, nvals, 1, 99);
+			nvals[0]=val;
+			vals=nvals;
 		}
 
 		@Override
 		public double read() {
-			// TODO Auto-generated method stub
-			return 0;
+			double avg=0;
+			for(double v:vals)
+			{
+				avg+=v;
+			}
+			return avg/LEN;
 		}
-		
 	}
 }
-/*
-x_k=F_k*x_{k-1}+B_k*u_k+w_k
-w_k=N(0,Q_k)
-z_k=H_k*x_k+v_k
-v_k=N(0,R_k)
-
-
-
-x
- */
