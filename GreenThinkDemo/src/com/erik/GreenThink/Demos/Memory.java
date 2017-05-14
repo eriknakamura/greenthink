@@ -5,6 +5,8 @@ public class Memory {
 	public static final String AC_NAME="";
 	public static final String LIGHTS_NAME="";
 	public static final String FANS_NAME="";
+	public static final String PH_DOWN_NAME="";
+	public static final String NUTREANT_NAME="";
 	
 	
 	AurduinoCommInterface io;
@@ -14,6 +16,13 @@ public class Memory {
 	SensorMemory pHSensor;
 	SensorMemory nutreiantSensors;
 	
+	boolean DHOn;
+	boolean ACOn;
+	boolean lightsOn;
+	boolean fansOn;
+	boolean pHDownOn;
+	boolean nutreantsOn;
+	
 	public Memory(AurduinoCommInterface io)
 	{
 		this.io=io;
@@ -21,55 +30,92 @@ public class Memory {
 
 	public void readAll(double dt)
 	{
-		// TODO Auto-generated method stub
-		
+		//TODO implement read all once form of io.getValueMap() is known
 	}
 
 	public boolean getDehumidiferIsOn() {
-		// TODO Auto-generated method stub
-		return false;
+		return DHOn;
 	}
 
 	public boolean getACIsOn() {
-		// TODO Auto-generated method stub
-		return false;
+		return ACOn;
 	}
 	
 	public boolean getLightsIsOn() {
-		// TODO Auto-generated method stub
-		return false;
+		return lightsOn;
 	}
 
 	public boolean getFansIsOn() {
-		// TODO Auto-generated method stub
-		return false;
+		return fansOn;
 	}
 
 	public void setDesiredStatesIfNeeded(boolean DH,
 			boolean AC, boolean lights,
-			boolean fans) {
-		if(DH&&!getDehumidiferIsOn())
+			boolean fans, boolean pHDown, boolean nutreants) {
+		if(DH&&!DHOn)
+		{
 			io.setState(DEHUMIDIFYER_NAME, true);
-		else if(!DH&&getDehumidiferIsOn())
+			DHOn=true;
+		}
+		else if(!DH&&DHOn)
+		{
 			io.setState(DEHUMIDIFYER_NAME, false);
+			DHOn=false;
+		}
 		
-		if(AC&&!getACIsOn())
+		if(AC&&!ACOn)
+		{
 			io.setState(AC_NAME, true);
-		else if(!AC&&getACIsOn())
+			ACOn=true;
+		}
+		else if(!AC&&ACOn)
+		{
 			io.setState(AC_NAME, false);
+			ACOn=false;
+		}
 
-		if(lights&&!getLightsIsOn())
+		if(lights&&!lightsOn)
+		{
 			io.setState(LIGHTS_NAME, true);
-		else if(!lights&&getLightsIsOn())
+			lightsOn=true;
+		}
+		else if(!lights&&lightsOn)
+		{
 			io.setState(LIGHTS_NAME, false);
+			lightsOn=false;
+		}
 
-		if(fans&&!getFansIsOn())
+		if(fans&&!fansOn)
+		{
 			io.setState(FANS_NAME, true);
-		else if(!fans&&getFansIsOn())
+			fansOn=true;
+		}
+		else if(!fans&&fansOn)
+		{
 			io.setState(FANS_NAME, false);
-		
-	}
+			fansOn=false;
+		}
 
-	
-	
+		if(pHDown&&!pHDownOn)
+		{
+			io.setState(PH_DOWN_NAME, true);
+			pHDownOn=true;
+		}
+		else if(!pHDown&&pHDownOn)
+		{
+			io.setState(PH_DOWN_NAME, false);
+			pHDownOn=false;
+		}
+		
+		if(nutreants&&!nutreantsOn)
+		{
+			io.setState(NUTREANT_NAME, true);
+			nutreantsOn=true;
+		}
+		else if(!nutreants&&nutreantsOn)
+		{
+			io.setState(NUTREANT_NAME, false);
+			nutreantsOn=false;
+		}
+	}
 }

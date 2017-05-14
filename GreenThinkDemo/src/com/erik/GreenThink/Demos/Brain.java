@@ -20,30 +20,17 @@ public class Brain
 	public static final double TIME_FANS_CYCLE_LEN=3.25;//5 minutes
 	public static final double TIME_FANS_ON_LEN=1;//1 minute
 	
-	
+	DripLockManager pHDown;
+	DripLockManager nutreants;
 	
 	AurduinoCommInterface io;
 	Memory mem;
 	public Brain(AurduinoCommInterface io)
 	{
 		mem = new Memory(io);
-		
 		(new WakeCycle(this)).start();
 	}
 	
-	/*Actuators
-	 * 
-	 * dehumidifyer (
-	 * AC
-	 * lights
-	 * fans
-	 * pH down
-	 * add nutreants
-	 * 
-	 * 
-	 * 
-	 * 
-	 */	
 	public void wake(double dt) {
 		mem.readAll(dt);
 		
@@ -52,7 +39,8 @@ public class Brain
 		boolean LightsShouldBeOn=LightsShouldBeOn();
 		boolean FansShouldBeOn=FanShouldBeOn();
 		
-		mem.setDesiredStatesIfNeeded(DHShouldBeOn,ACShouldBeOn,LightsShouldBeOn,FansShouldBeOn);
+		mem.setDesiredStatesIfNeeded(DHShouldBeOn,ACShouldBeOn,LightsShouldBeOn,FansShouldBeOn
+				,pHDown.getShouldBeOn(mem),nutreants.getShouldBeOn(mem));
 	}
 	
 	public boolean humidifyShouldBeOn()
