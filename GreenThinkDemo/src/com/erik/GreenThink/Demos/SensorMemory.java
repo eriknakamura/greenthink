@@ -2,12 +2,12 @@ package com.erik.GreenThink.Demos;
 
 public class SensorMemory {
 	int number;
-	FilteredVar[] values;
+	FilteredVar[] sensors;
 	
 	public double avg()
 	{
 		double avg=0;
-		for(FilteredVar v:values)
+		for(FilteredVar v:sensors)
 		{
 			avg+=v.read();
 		}
@@ -25,7 +25,7 @@ public class SensorMemory {
 	{
 		double max=Double.MIN_VALUE;
 		double min=Double.MAX_VALUE;
-		for(FilteredVar v:values)
+		for(FilteredVar v:sensors)
 		{
 			max=Double.max(max, v.read());
 			min=Double.min(min, v.read());

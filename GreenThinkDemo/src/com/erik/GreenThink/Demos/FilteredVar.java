@@ -1,5 +1,10 @@
 package com.erik.GreenThink.Demos;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class FilteredVar
 {
 	public final int LEN;
@@ -7,7 +12,7 @@ public abstract class FilteredVar
 	public FilteredVar(int len)
 	{
 		LEN=len;
-		vals=new CycleArray<>(new Double[LEN]);
+		vals=new CycleArray<>(LEN);
 	}
 	public FilteredVar()
 	{
@@ -25,7 +30,7 @@ public abstract class FilteredVar
 		@Override
 		public double read() {
 			double avg=0;
-			for(double v:vals.getUnorderedArray())
+			for(double v:vals.vals())
 			{
 				avg+=v;
 			}
@@ -34,46 +39,61 @@ public abstract class FilteredVar
 	}
 	public class NoOutlierMeanFilter extends FilteredVar
 	{
+		double percent=0;
+		public NoOutlierMeanFilter(int len, double percent)
+		{
+			super(len);
+			this.percent=percent;
+		}
 		@Override
 		public double read() {
+			List<Double> l = vals.sorted();
 			double avg=0;
-			for(double v:vals.getUnorderedArray())
+			int cut=(int)(l.size()*percent);
+			int n=0;
+			for(int i=cut; i < l.size()-cut; i++)
 			{
-				avg+=v;
+				avg+=l.get(i);
+				n++;
 			}
-			return avg/LEN;
+			return avg/n;
 		}
 	}
 	
-	public class CycleArray<E extends Number>
+	public class CycleArray<E extends Comparable<? super E>>
 	{
 		int len;
 		E[] array;
-		int loc=0;
+		LinkedList<E> queue;
 		
-		public CycleArray(E[] backing)
+		public CycleArray(int len)
 		{
-			this.len=backing.length;
-			array=backing;
+			this.len=len;
+			queue=new LinkedList<>();
+			for(int i = 0; i < len; i++)
+				queue.add(null);
 		}
 		
+		public List<E> vals() {
+			return queue;
+		}
+
 		public void add(E e) {
-			array[loc]=e;
-			loc++;
-			loc%=len;
+			queue.poll();
+			queue.add(e);
 		}
 		
 		public E get(int pos)
 		{
-			int x=(pos-loc);
-			if(x<0)
-				x+=len;
-			return array[x];
+			return queue.get(pos);
 		}
-		
-		public E[] getUnorderedArray()
+		//TODO make faster. keep l and keep sorted.
+		public List<E> sorted()
 		{
-			return array;
+			List<E> l = new ArrayList<>();
+			l.addAll(queue);
+			Collections.sort(l);
+			return l;
 		}
 	}
 }

@@ -24,8 +24,8 @@ public class GreenThinkGUI extends JFrame {
 	private JTable arduinoTable;
 	
 	//Referance SerialManger
-	private SerialManager serialManage;
-	   public GreenThinkGUI(SerialManager serialManage) {
+	private SerialManagerUtils serialManage;
+	   public GreenThinkGUI(SerialManagerUtils serialManage) {
 	     this.serialManage = serialManage; 
 	   }
 
@@ -67,21 +67,18 @@ public class GreenThinkGUI extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblFindArduinos, 0, SpringLayout.WEST, contentPane);
 		contentPane.add(lblFindArduinos);
 		
-
-		
-		
 		JButton btnFindArduinos = new JButton("Refresh Ports");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblFindArduinos, 6, SpringLayout.SOUTH, btnFindArduinos);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btnFindArduinos, 6, SpringLayout.SOUTH, lblWelcomeToGreenthink);
 		sl_contentPane.putConstraint(SpringLayout.WEST, btnFindArduinos, 0, SpringLayout.WEST, contentPane);
 		btnFindArduinos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				SerialPort[] portList = SerialManager.findPorts();
+				SerialPort[] portList = SerialManagerUtils.findPorts();
 				if(portList != null){
 					for(int i=0;i<portList.length;i++){
-					System.out.println(portList.SerialManage.getSystemName[i]);
-					arduinoTable.setValueAt(portList.get(i).SerialManager.getSystemNames, i+1 , 0);
-					arduinoTable.setValueAt(portList.get(i).getSystemPortName(), 1+i, 1);
+						System.out.println(SerialManagerUtils.getSystemName(portList[i]));
+						arduinoTable.setValueAt(SerialManagerUtils.getSystemName(portList[i]), i+1 , 0);
+						arduinoTable.setValueAt(SerialManagerUtils.getCommomName(portList[i]), 1+i, 1);
 					}
 				}
 				else{

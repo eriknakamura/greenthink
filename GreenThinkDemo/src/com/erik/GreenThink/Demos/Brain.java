@@ -32,8 +32,6 @@ public class Brain
 	}
 	
 	public void wake(double dt) {
-		mem.readAll(dt);
-		
 		boolean DHShouldBeOn=humidifyShouldBeOn();
 		boolean ACShouldBeOn=ACShouldBeOn();
 		boolean LightsShouldBeOn=LightsShouldBeOn();
